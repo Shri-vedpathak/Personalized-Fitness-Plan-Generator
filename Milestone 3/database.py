@@ -48,12 +48,3 @@ def check_user_exists(email):
     row = cursor.fetchone()
     conn.close()
     return row is not None
-
-def update_password(email, new_password):
-    hashed_pw = generate_password_hash(new_password)
-    conn = sqlite3.connect(DB_NAME)
-    cursor = conn.cursor()
-    cursor.execute("UPDATE users SET password_hash = ? WHERE email = ?", (hashed_pw, email))
-    conn.commit()
-    conn.close()
-    return True
